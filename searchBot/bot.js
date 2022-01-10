@@ -1,17 +1,14 @@
+require('dotenv').config();
 const Telegraf = require('telegraf').Telegraf;
 const axios = require('axios');
+const config = require('./config');
 
-const bot = new Telegraf('5023929875:AAFpJdhAaVVH0xR5_-T-qh6D7I684gc19kg');
+const bot = new Telegraf(process.env.TOKEN);
 
-const pixabayApiKey = '25184478-77363031224825ac619999300';
+const pixabayApiKey = process.env.PIXABAYAPI;
 
 bot.command(['start', 'help'], ctx => {
-  let message = `
-Welcome to Search Bot!
-Use the inline mode below
-@dimitrrrr_searchBot p <search image>
-@dimitrrrr_searchBot w <search wiki>
-  `;
+  let message = config.helpMessage;
 
   ctx.reply(message, {
     reply_markup: {
@@ -27,12 +24,7 @@ Use the inline mode below
 });
 
 bot.inlineQuery(['start', 'help'], ctx => {
-  let message = `
-Welcome to Search Bot!
-Use the inline mode below
-@dimitrrrr_searchBot p <search image>
-@dimitrrrr_searchBot w <search wiki>
-  `;
+  let message = config.helpMessage;
 
   let results = [
     {
